@@ -14,6 +14,7 @@ import {
     RegisterUserDto,
 } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
+import { LoginUserDto } from './dto/login-user.dto';
 
 @Controller('user')
 export class UserController {
@@ -30,6 +31,15 @@ export class UserController {
 
         return this.userService.register(
             registerUserDto,
+        );
+    }
+
+    @Post('login')
+    async login(
+        @Body() LoginUserDto: LoginUserDto,
+    ) {
+        return this.userService.login(
+            LoginUserDto,
         );
     }
 
