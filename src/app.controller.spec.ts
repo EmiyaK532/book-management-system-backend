@@ -10,30 +10,19 @@ describe('AppController', () => {
 
     beforeEach(async () => {
         const app: TestingModule =
-            await Test.createTestingModule(
-                {
-                    controllers:
-                        [
-                            AppController,
-                        ],
-                    providers:
-                        [
-                            AppService,
-                        ],
-                },
-            ).compile();
+            await Test.createTestingModule({
+                controllers: [AppController],
+                providers: [AppService],
+            }).compile();
 
-        appController =
-            app.get<AppController>(
-                AppController,
-            );
+        appController = app.get<AppController>(
+            AppController,
+        );
     });
 
     describe('root', () => {
         it('should return "Hello World!"', () => {
-            expect(
-                appController.getHello(),
-            ).toBe(
+            expect(appController.getHello()).toBe(
                 'Hello World!',
             );
         });

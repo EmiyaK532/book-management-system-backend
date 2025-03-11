@@ -1,3 +1,8 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
+/* eslint-disable @typescript-eslint/no-unsafe-return */
+/* eslint-disable @typescript-eslint/no-unsafe-call */
+/* eslint-disable @typescript-eslint/no-unsafe-member-access */
 import {
     BadRequestException,
     Injectable,
@@ -18,13 +23,19 @@ export class BookService {
     ) {}
 
     //获取图书列表
-    async list() {
+    async list(name: string) {
+        // 读取图书列表
         const books = await this.dbService.read();
-        return books;
+        return name
+            ? books.filter((book) => {
+                  return book.name.includes(name);
+              })
+            : books;
     }
 
     //根据id获取图书
     async findById(id: number) {
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
         const books: Book[] =
             await this.dbService.read();
         return books.find(
@@ -54,7 +65,7 @@ export class BookService {
                 book.description,
             );
             return book;
-        } catch (error) {
+        } catch (error: any) {
             throw new BadRequestException(
                 '图书创建失败',
             );

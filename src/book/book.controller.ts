@@ -7,6 +7,7 @@ import {
     Param,
     Post,
     Put,
+    Query,
     UploadedFile,
     UseInterceptors,
 } from '@nestjs/common';
@@ -59,12 +60,13 @@ export class BookController {
         @UploadedFile() file: Express.Multer.File,
     ) {
         console.log('file', file);
-        return `file-howhite: ${file.path}-${file.filename}`;
+        return `${file.path}`;
     }
 
     @Get('list')
-    async list() {
-        return this.bookService.list();
+    async list(@Query('name') name: string) {
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-return
+        return this.bookService.list(name);
     }
 
     @Get(':id')
